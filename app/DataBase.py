@@ -50,7 +50,7 @@ class DataBase():
         for data in udatas:
             del data['_id']
             return_mess.append(data)
-        return_mess.sort(key = itemgetter("score","time"),reverse=True)
+        return_mess.sort(key = itemgetter("time","score"),reverse=True)
         return return_mess
 
 if __name__ == "__main__":
