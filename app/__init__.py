@@ -1,14 +1,12 @@
+# -*- coding: UTF-8 -*-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from DataBase import DataBase
+from app.DataBase import DataBase
 import json
+
 app = Flask(__name__)
 CORS(app)
 database = DataBase()
-
-@app.route("/")
-def index():
-    return "Hello"
 
 @app.route("/CheckData", methods = ["POST"])
 def CHK_postinput():

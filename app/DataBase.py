@@ -1,6 +1,8 @@
+# -*- coding: UTF-8 -*-
 import json
 from pymongo import MongoClient
 from operator import itemgetter, attrgetter
+
 class DataBase():
     def __init__(self):
         client = MongoClient('mongodb://localhost:27017/')
@@ -49,19 +51,14 @@ class DataBase():
         return_mess.sort(key = itemgetter("score","time"),reverse=True)
         return return_mess
 
-
-
-
-# client = MongoClient('mongodb://localhost:27017/')
-# db = client["snake_game"]
-# db_userdata = db["userdata"]
 if __name__ == "__main__":
-    database = DataBase()
-    database.insert_data({
-        "uid":"jeff",
-        "time":10,
-        "score":70
-    })
-    for i in database.find_all_userdata():
-        print(i)
+    pass
+    # database = DataBase()
+    # database.insert_data({
+    #     "uid":"jeff",
+    #     "time":10,
+    #     "score":70
+    # })
+    # for i in database.find_all_userdata():
+    #     print(i)
 

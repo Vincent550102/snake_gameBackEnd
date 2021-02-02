@@ -1,0 +1,6 @@
+gunicorn
+pymongo
+operator
+json
+flask
+flask_cors
