@@ -1,11 +1,13 @@
 # -*- coding: UTF-8 -*-
 import json
-from pymongo import MongoClient
+from pymongo import MongoClient#,dnspython
 from operator import itemgetter, attrgetter
 
 class DataBase():
     def __init__(self):
-        client = MongoClient('mongodb://localhost:27017/')
+        client = MongoClient('mongodb+srv://Vincent550102:Vincent55920102@cluster0.khbuw.mongodb.net/snake_game?retryWrites=true&w=majority')
+        #mongodb+srv://Vincent550102:Vincent55920102@cluster0.khbuw.mongodb.net/snake_game?retryWrites=true&w=majority
+
         self.db = client["snake_game"]
         self.db_userdatas = self.db['userdata']
     def insert_data(self,obj):
