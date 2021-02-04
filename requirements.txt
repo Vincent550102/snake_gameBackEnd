@@ -3,3 +3,4 @@ pymongo
 dnspython
 flask
 flask_cors
+flask_jwt_extended
