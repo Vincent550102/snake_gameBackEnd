@@ -1,12 +1,28 @@
 # -*- coding: UTF-8 -*-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from flask_jwt_extended import (
+    JWTManager, jwt_required, create_access_token,
+    get_jwt_identity
+)
 from app.DataBase import DataBase
 import json
 
 app = Flask(__name__)
 CORS(app)
 database = DataBase()
+
+jwt = JWTManager()
+
+app.config['JWT_SECRET_KEY'] = 'catcatcat314159hahafoundit'
+jwt.init_app(app)
+
+@app.route('/catcatGettok', methods=['POST'])
+def login():
+    uid = request.json.get('uid', None)
+    access_token = create_access_token(identity=uid)
+    return jsonify(access_token=access_token)
+
 
 @app.route("/CheckData", methods = ["POST"])
 def CHK_postinput():
@@ -28,7 +44,9 @@ def CHK_postinput():
     '''
     return jsonify(db_mess)
 
+
 @app.route("/InsertData", methods = ["POST"])
+@jwt_required
 def INSERT_postinput():
     insert_val = request.get_json()
     '''
