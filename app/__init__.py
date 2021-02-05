@@ -1,20 +1,20 @@
 # -*- coding: UTF-8 -*-
-from flask import Flask, request, jsonify
+import os
+from flask import Flask, request, jsonify, render_template, render_template_string
 from flask_cors import CORS
 from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token,
-    get_jwt_identity
+    get_jwt_identity, decode_token
 )
 from app.DataBase import DataBase
 import json
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"./*": {"origins": "none"}})
 database = DataBase()
+jwt = JWTManager()#https://vincent550102.github.io
 
-jwt = JWTManager()
-
-app.config['JWT_SECRET_KEY'] = 'catcatcat314159hahafoundit'
+app.config['JWT_SECRET_KEY'] = str(os.urandom(64).hex())
 jwt.init_app(app)
 
 @app.route('/catcatGettok', methods=['POST'])
@@ -49,6 +49,7 @@ def CHK_postinput():
 @jwt_required
 def INSERT_postinput():
     insert_val = request.get_json()
+    decode = decode_token(request.headers['Authorization'].split('Bearer ')[-1])['identity']
     '''
     {
         "uid":"Vincent550102",
@@ -60,7 +61,9 @@ def INSERT_postinput():
         1 = OK already edit
         2 = OK no this user but already add
     '''
-    return jsonify(database.insert_data(insert_val))
+    if insert_val['score'] > 1000 or insert_val['time'] < 0 or decode!=insert_val['uid']:
+        return render_template_string("cheat you")
+    return jsonify(render_template_string(database.insert_data(insert_val)))
 
 @app.route('/Alldatas',methods = ["GET"])
 def Show_alldata():
