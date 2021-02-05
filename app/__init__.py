@@ -10,9 +10,9 @@ from app.DataBase import DataBase
 import json
 
 app = Flask(__name__)
-CORS(app, resources={r"./*": {"origins": "none"}})
+CORS(app, resources={r"./*": {"origins": "https://vincent550102.github.io"}})
 database = DataBase()
-jwt = JWTManager()#https://vincent550102.github.io
+jwt = JWTManager()
 
 app.config['JWT_SECRET_KEY'] = str(os.urandom(64).hex())
 jwt.init_app(app)
