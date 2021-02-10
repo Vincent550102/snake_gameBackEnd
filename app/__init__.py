@@ -10,8 +10,8 @@ from app.DataBase import DataBase
 import json
 
 app = Flask(__name__)
-CORS(app, resources={r"./*": {"origins": "https://vincent550102.github.io",
-    "http://127.0.0.1/"
+CORS(app, resources={r"./*": {"origins": ["https://vincent550102.github.io",
+    "http://127.0.0.1/"]
 }})
 database = DataBase()
 jwt = JWTManager()
